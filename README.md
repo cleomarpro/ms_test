@@ -38,8 +38,8 @@ Implementar a funcionalidade de **inativação de clientes**, fazendo com que cl
 ## 4. Requisitos obrigatórios
 
 ### 4.1. Alteração no model
-1. Adicionar ao model `Cliente` o campo `ativo`
-2. Exibir apenas clientes ativos por padrão
+1.  OK - Adicionar ao model `Cliente` o campo `ativo`
+2. OK  Exibir apenas clientes ativos por padrão
 3. Permitir visualizar todos os clientes com filtro opcional
 4. Criar forma de inativar e reativar clientes
 5. Criar pelo menos 2 testes automatizados
@@ -76,3 +76,16 @@ source .venv/bin/activate
 pip install django
 python manage.py migrate
 python manage.py runserver
+
+## 6. O que foi implementado
+- descrevendo brevemente:
+    
+
+- o que você fez;
+    .foi adicionado um capo de estatus  no model Cliente e no template
+    . Na view foi feito o filto padrão clientes ativos e todos os clientes
+    .  foi  criado um checked no template clientes que ao ser marcado ele lista todos os clientes
+    . Foi criad na view clientes uma função para altera o status do cliente 
+    . Foi criado no template cliente um botão para inativar e ativar o cliente
+- eventuais decisões tomadas;
+- qualquer observação importante sobre sua implementação;

@@ -5,7 +5,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-teste-mbweb-dev-junior"
 DEBUG = True
 ALLOWED_HOSTS = []
-
+CSRF_TRUSTED_ORIGINS = ["https://*.github.dev", "https://localhost:8000", "https://localhost:8001"]
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",

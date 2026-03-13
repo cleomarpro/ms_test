@@ -2,7 +2,11 @@
 
 {% block content %}
 <h2>Clientes</h2>
-
+<form method="get">
+    <label for="todos_cliente">Mostrar todos os clientes:</label>
+    <input type="checkbox" id="todos_cliente" name="todos_cliente" {% if request.GET.todos_cliente %}checked{% endif %}>
+    <button type="submit">Filtrar</button>
+</form>
 <table>
     <thead>
         <tr>
@@ -11,6 +15,7 @@
             <th>E-mail</th>
             <th>Tipo</th>
             <th>Criado em</th>
+            <th>Status</th>
         </tr>
     </thead>
     <tbody>
@@ -21,11 +26,23 @@
             <td>{{ cliente.email }}</td>
             <td>{{ cliente.get_tipo_display }}</td>
             <td>{{ cliente.criado_em }}</td>
+            <td> 
+                <form method="get">
+                    <input type="hidden" name="id_cliente" value="{{ cliente.id }}">
+                    {% if cliente.status == "AT" %}
+                        <input type="hidden" name="status_cliente" value="IN">
+                        <button type="submit">Inativar</button>
+                    {% else %}
+                        <input type="hidden" name="status_cliente" value="AT">
+                        <button type="submit">Ativar</button>
+                    {% endif %}
+                </form>
+            </td>
         </tr>
-        {% empty %}
-        <tr>
-            <td colspan="5">Nenhum cliente encontrado.</td>
-        </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">Nenhum cliente encontrado.</td>
+            </tr>
         {% endfor %}
     </tbody>
 </table>

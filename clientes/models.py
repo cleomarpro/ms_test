@@ -6,6 +6,9 @@ class TipoCliente(models.TextChoices):
     PESSOA_JURIDICA = "PJ", "Pessoa Jurídica"
     VIP = "VIP", "VIP"
 
+class StatusCliente(models.TextChoices):
+    ATIVO = "AT", "Ativo"
+    INATIVO = "IN", "Inativo"
 
 class Cliente(models.Model):
     nome = models.CharField(max_length=150)
@@ -14,6 +17,11 @@ class Cliente(models.Model):
         max_length=3,
         choices=TipoCliente.choices,
         default=TipoCliente.PESSOA_FISICA,
+    )
+    status = models.CharField(
+        max_length=2,
+        choices=StatusCliente.choices,
+        default=StatusCliente.ATIVO,
     )
     criado_em = models.DateTimeField(auto_now_add=True)
 
