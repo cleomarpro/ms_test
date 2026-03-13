@@ -1,0 +1,31 @@
+{
+  "name": "Ps_test Dev",
+  "image": "mcr.microsoft.com/devcontainers/python:3.11",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspaces/ms_test",
+
+  "forwardPorts": [5432, 8000],
+
+  "postCreateCommand": "pip install --upgrade pip setuptools wheel && pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate && python manage.py loaddata fixtures/req_dados_iniciais.json",
+
+  "containerEnv": {
+    "DJANGO_SUPERUSER_USERNAME": "admin",
+    "DJANGO_SUPERUSER_PASSWORD": "admin123",
+    "DJANGO_SUPERUSER_EMAIL": "admin@example.com",
+    "DJANGO_DEBUG": "True",
+    "ALLOWED_HOSTS": "localhost,127.0.0.1,.github.dev",
+    "DATABASE_URL": "postgres://postgres:postgres@db:5432/ms_test"
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "batisteo.vscode-django"
+      ]
+    }
+  }
+}
+
