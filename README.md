@@ -94,7 +94,9 @@ python manage.py runserver
     test_ativar_cliente_via_get
     test_inativar_cliente_via_get
     . Foi atualizado o seed_clientes  para cria até 50 clientes
-
+    . ci: validado com pytest -s (todos os testes passaram)
 
 - eventuais decisões tomadas;
+    . Foi atualizado o seed_clientes  para cria até 50 clientes
+    ci: validado com pytest -s (todos os testes passaram)
 - qualquer observação importante sobre sua implementação;
