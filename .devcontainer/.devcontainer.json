@@ -7,7 +7,7 @@
 
   "forwardPorts": [5432, 8000],
 
-  "postCreateCommand": "pip install --upgrade pip setuptools wheel && pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate && python manage.py loaddata fixtures/req_dados_iniciais.json",
+  "postCreateCommand": "python3.11 -m venv venv && source venv/bin/activate && pip install --upgrade pip setuptools wheel && pip install -r requirements.txt && python3.11 manage.py collectstatic --noinput && python3.11 manage.py migrate && python3.11 manage.py loaddata fixtures/req_dados_iniciais.json",
 
   "containerEnv": {
     "DJANGO_SUPERUSER_USERNAME": "admin",
@@ -24,8 +24,10 @@
         "ms-python.python",
         "ms-python.vscode-pylance",
         "batisteo.vscode-django"
-      ]
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/workspaces/ms_test/venv/bin/python3.11"
+      }
     }
   }
 }
-

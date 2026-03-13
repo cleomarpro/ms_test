@@ -14,7 +14,7 @@ services:
 
   app:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python3.11 manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/workspaces/ms_test
     ports:
