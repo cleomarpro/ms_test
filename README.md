@@ -38,12 +38,12 @@ Implementar a funcionalidade de **inativação de clientes**, fazendo com que cl
 ## 4. Requisitos obrigatórios
 
 ### 4.1. Alteração no model
-1.  OK - Adicionar ao model `Cliente` o campo `ativo`
+1. OK - Adicionar ao model `Cliente` o campo `ativo`
 2. OK  Exibir apenas clientes ativos por padrão
-3. Permitir visualizar todos os clientes com filtro opcional
-4. Criar forma de inativar e reativar clientes
-5. Criar pelo menos 2 testes automatizados
-6. Atualizar o `seed_clientes` para gerar uma massa de dados
+3. OK Permitir visualizar todos os clientes com filtro opcional
+4. OK Criar forma de inativar e reativar clientes
+5. OK Criar pelo menos 2 testes automatizados
+6. OK Atualizar o `seed_clientes` para gerar uma massa de dados
 7. Separe o backend do frontend, para boas práticas de desenvolvimento:
 - O frontend será feito em um novo projeto que irá acessar as informações deste projeto;
 - O frontend deve ser feito em Angular e consumir endpoints do backend;
@@ -87,5 +87,14 @@ python manage.py runserver
     .  foi  criado um checked no template clientes que ao ser marcado ele lista todos os clientes
     . Foi criad na view clientes uma função para altera o status do cliente 
     . Foi criado no template cliente um botão para inativar e ativar o cliente
+
+    .Foi criado 4 testes para validar a view cleinte
+    sao eles:                                              test_lista_clientes_padrao_mostra_inativos_e_ativos_via_get
+    test_lista_clientes_padrao_mostra_apenas_ativos_via_get
+    test_ativar_cliente_via_get
+    test_inativar_cliente_via_get
+    . Foi atualizado o seed_clientes  para cria até 50 clientes
+
+
 - eventuais decisões tomadas;
 - qualquer observação importante sobre sua implementação;

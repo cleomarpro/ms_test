@@ -1,55 +1,48 @@
 from django.core.management.base import BaseCommand
+from clientes.models import Cliente, TipoCliente, StatusCliente
+import random
 
-from clientes.models import Cliente, TipoCliente
-
-CLIENTES_INICIAIS = [
-    {"nome": "Ana", "email": "ana@email.com", "tipo": TipoCliente.PESSOA_FISICA},
-    {"nome": "Bruno", "email": "bruno@email.com", "tipo": TipoCliente.PESSOA_FISICA},
-    {"nome": "Carlos", "email": "carlos@email.com", "tipo": TipoCliente.PESSOA_JURIDICA},
-    {"nome": "Daniela", "email": "daniela@email.com", "tipo": TipoCliente.PESSOA_FISICA},
-    {"nome": "Eduardo", "email": "eduardo@email.com", "tipo": TipoCliente.PESSOA_JURIDICA},
-    {"nome": "Fernanda", "email": "fernanda@email.com", "tipo": TipoCliente.PESSOA_FISICA},
-    {"nome": "Gustavo", "email": "gustavo@email.com", "tipo": TipoCliente.PESSOA_JURIDICA},
-    {"nome": "Helena", "email": "helena@email.com", "tipo": TipoCliente.VIP},
-    {"nome": "Igor", "email": "igor@email.com", "tipo": TipoCliente.PESSOA_FISICA},
-    {"nome": "Juliana", "email": "juliana@email.com", "tipo": TipoCliente.VIP},
+NOMES_BASE = [
+    "Ana", "Bruno", "Carlos", "Daniela", "Eduardo",
+    "Fernanda", "Gabriel", "Helena", "Igor", "Juliana",
+    "Kleber", "Larissa", "Marcos", "Natália", "Otávio",
+    "Paula", "Ricardo", "Sofia", "Tiago", "Vanessa"
 ]
 
-
 class Command(BaseCommand):
-    help = "Cria clientes iniciais para ambiente de desenvolvimento."
+    help = "Cria uma massa de clientes para ambiente de desenvolvimento."
 
     def handle(self, *args, **options):
-        created_count = 0
-        updated_count = 0
+        criados = 0
+        atualizados = 0
 
-        for item in CLIENTES_INICIAIS:
-            cliente, created = Cliente.objects.get_or_create(
-                email=item["email"],
+        # Gera até 50 clientes
+        for i in range(1, 51):
+            nome = random.choice(NOMES_BASE)
+            email = f"{nome.lower()}{i}@example.com"
+            tipo = random.choice([
+                TipoCliente.PESSOA_FISICA,
+                TipoCliente.PESSOA_JURIDICA,
+                TipoCliente.VIP
+            ])
+            status = random.choice([StatusCliente.ATIVO, StatusCliente.INATIVO])
+
+            cliente, created = Cliente.objects.update_or_create(
+                email=email,
                 defaults={
-                    "nome": item["nome"],
-                    "tipo": item["tipo"],
-                },
+                    "nome": nome,
+                    "tipo": tipo,
+                    "status": status,
+                }
             )
 
             if created:
-                created_count += 1
-                continue
-
-            fields_to_update = []
-            if cliente.nome != item["nome"]:
-                cliente.nome = item["nome"]
-                fields_to_update.append("nome")
-            if cliente.tipo != item["tipo"]:
-                cliente.tipo = item["tipo"]
-                fields_to_update.append("tipo")
-
-            if fields_to_update:
-                cliente.save(update_fields=fields_to_update)
-                updated_count += 1
+                criados += 1
+            else:
+                atualizados += 1
 
         self.stdout.write(
             self.style.SUCCESS(
-                f"Seed finalizado. Criados: {created_count} | Atualizados: {updated_count}"
+                f"Seed finalizado. Criados: {criados} | Atualizados: {atualizados}"
             )
         )
