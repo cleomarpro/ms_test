@@ -44,10 +44,10 @@ Implementar a funcionalidade de **inativação de clientes**, fazendo com que cl
 4. OK Criar forma de inativar e reativar clientes
 5. OK Criar pelo menos 2 testes automatizados
 6. OK Atualizar o `seed_clientes` para gerar uma massa de dados
-7. Separe o backend do frontend, para boas práticas de desenvolvimento:
+7. OK Separe o backend do frontend, para boas práticas de desenvolvimento:
 - O frontend será feito em um novo projeto que irá acessar as informações deste projeto;
 - O frontend deve ser feito em Angular e consumir endpoints do backend;
-- Pode utilizar no backend o DRF (Django Rest Framework) para criação dos endpoints;
+- OK  Pode utilizar no backend o DRF (Django Rest Framework) para criação dos endpoints;
 8. A melhor solução para este teste não é a mais complexa e sim:
 - a mais simples;
 - a mais clara;
@@ -73,9 +73,19 @@ Implementar a funcionalidade de **inativação de clientes**, fazendo com que cl
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install django
-python manage.py migrate
+pip install -r requirements.txt
+python manage.py migrate"
 python manage.py runserver
+executar os testes: pytest -s
+
+
+```Angula
+## Como rodar o projeto
+```bash
+npm install
+npm install @angular/cli --save-dev
+ng serve
+
 
 ## 6. O que foi implementado
 - descrevendo brevemente:
@@ -95,7 +105,14 @@ python manage.py runserver
     test_inativar_cliente_via_get
     . Foi atualizado o seed_clientes  para cria até 50 clientes
     . ci: validado com pytest -s (todos os testes passaram)
+    .api: criada API com Django REST Framework para clientes
+        - endpoint GET /api/clientes/ lista apenas ativos
+        - endpoint GET /api/clientes/?todos_cliente=on lista todos
+        - endpoint POST /api/clientes/status/ ativa ou inativa cliente
 
+        tests: consumo da API validado com requests em api_teste.py
+        - confirmada resposta JSON correta
+        
 - eventuais decisões tomadas;
     . Foi atualizado o seed_clientes  para cria até 50 clientes
     ci: validado com pytest -s (todos os testes passaram)
