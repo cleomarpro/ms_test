@@ -81,9 +81,10 @@ executar os testes: pytest -s
 
 ```Angula
 ## Como rodar o projeto
+.Baixe e instale o Node.js verção LTS
 ```bash
-npm install
 npm install @angular/cli --save-dev
+npm install
 ng serve
 
 

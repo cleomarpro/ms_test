@@ -1,16 +1,26 @@
-<h2>Clientes Ativos</h2>
-<ul>
-  <li *ngFor="let cliente of clientesAtivos">
-    {{ cliente.nome }}
-    <button (click)="inativar(cliente.id)">Inativar</button>
-  </li>
-</ul>
+<h2 *ngIf="!mostrarTodos">Clientes Ativos</h2>
+<h2 *ngIf="mostrarTodos">Todos os Clientes</h2>
 
-<h2>Todos os Clientes</h2>
-<ul>
-  <li *ngFor="let cliente of clientesTodos">
-    {{ cliente.nome }} - {{ cliente.status }}
-    <button (click)="ativar(cliente.id)">Ativar</button>
-    <button (click)="inativar(cliente.id)">Inativar</button>
-  </li>
-</ul>
+<button (click)="listarTodos()" *ngIf="!mostrarTodos">Listar Todos</button>
+<button (click)="listarAtivos()" *ngIf="mostrarTodos">Listar Apenas Ativos</button>
+
+<table>
+  <tr>
+    <th>Nome</th>
+    <th>Email</th>
+    <th>Tipo</th>
+    <th>Status</th>
+    <th>Ações</th>
+  </tr>
+  <tr *ngFor="let cliente of clientes">
+    <td>{{ cliente.nome }}</td>
+    <td>{{ cliente.email }}</td>
+    <td>{{ cliente.tipo }}</td>
+    <td>{{ cliente.status }}</td>
+    <td>
+      <button (click)="alternarStatus(cliente)">
+        {{ cliente.status === 'ATIVO' ? 'Inativar' : 'Ativar' }}
+      </button>
+    </td>
+  </tr>
+</table>

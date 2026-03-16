@@ -5,26 +5,56 @@ import { ClientesService } from '../services/clientes-service';
 @Component({
   selector: 'app-clientes',
   standalone: true,
-  imports: [CommonModule],   // <-- adicione aqui
+  imports: [CommonModule],  
   templateUrl: './clientes.html',
   styleUrls: ['./clientes.css']
 })
 export class ClientesComponent implements OnInit {
-  clientesAtivos: any[] = [];
-  clientesTodos: any[] = [];
+  clientes: any[] = [];
+  mostrarTodos = false;
 
   constructor(private clientesService: ClientesService) {}
 
   ngOnInit(): void {
-    this.clientesService.listarAtivos().subscribe(data => this.clientesAtivos = data);
-    this.clientesService.listarTodos().subscribe(data => this.clientesTodos = data);
+    // Ao carregar a página, já lista os ativos
+    this.listarAtivos();
   }
 
-  ativar(id: number) {
-    this.clientesService.ativarCliente(id).subscribe(resp => console.log('Ativado:', resp));
+  listarAtivos() {
+    this.clientesService.listarAtivos().subscribe(data => {
+      this.clientes = data;
+      this.mostrarTodos = false;
+    });
   }
 
-  inativar(id: number) {
-    this.clientesService.inativarCliente(id).subscribe(resp => console.log('Inativado:', resp));
+  listarTodos() {
+    this.clientesService.listarTodos().subscribe(data => {
+      this.clientes = data;
+      this.mostrarTodos = true;
+    });
   }
+
+  alternarStatus(cliente: any) {
+  const ativo = cliente.status === 'ATIVO';
+  const novoStatus = ativo ? 'INATIVO' : 'ATIVO';
+  const acao = ativo ? 'Inativar' : 'Ativar';
+
+  if (confirm(`Deseja ${acao} o cliente ${cliente.nome}?`)) {
+    this.clientesService.atualizarStatus(cliente.id, novoStatus).subscribe({
+      next: () => {
+        alert(`Cliente ${cliente.nome} foi ${acao} com sucesso!`);
+
+        // 🔄 Atualiza localmente e força refresh
+        this.clientes = this.clientes.map(c =>
+          c.id === cliente.id ? { ...c, status: novoStatus } : c
+        );
+      },
+      error: (err) => {
+        alert("Erro ao atualizar cliente: " + err.message);
+      }
+    });
+  }
+}
+
+
 }

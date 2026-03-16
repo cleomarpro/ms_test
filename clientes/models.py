@@ -7,8 +7,8 @@ class TipoCliente(models.TextChoices):
     VIP = "VIP", "VIP"
 
 class StatusCliente(models.TextChoices):
-    ATIVO = "AT", "Ativo"
-    INATIVO = "IN", "Inativo"
+    ATIVO = "ATIVO", "Ativo"
+    INATIVO = "INATIVO", "Inativo"
 
 class Cliente(models.Model):
     nome = models.CharField(max_length=150)
@@ -19,7 +19,7 @@ class Cliente(models.Model):
         default=TipoCliente.PESSOA_FISICA,
     )
     status = models.CharField(
-        max_length=2,
+        max_length=7,
         choices=StatusCliente.choices,
         default=StatusCliente.ATIVO,
     )

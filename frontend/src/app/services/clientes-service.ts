@@ -31,4 +31,12 @@ export class ClientesService {
       status_cliente: 'INATIVO'
     });
   }
+  atualizarStatus(id: number, status: string): Observable<any> {
+  return this.http.post(`${this.BASE_URL}/clientes/status/`, {
+    id_cliente: id,
+    status_cliente: status
+  });
+}
+
+
 }
