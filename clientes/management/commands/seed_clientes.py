@@ -16,7 +16,10 @@ class Command(BaseCommand):
         criados = 0
         atualizados = 0
 
-        # Gera até 50 clientes
+        # Limpa todos os clientes antes de recriar
+        Cliente.objects.all().delete()
+
+        # Gera exatamente 50 clientes
         for i in range(1, 51):
             nome = random.choice(NOMES_BASE)
             email = f"{nome.lower()}{i}@example.com"

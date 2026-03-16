@@ -9,7 +9,7 @@ def lista_clientes(request):
     if request.GET.get("todos_cliente"):
         data['clientes'] = Cliente.objects.all()
     else:
-        data['clientes'] = Cliente.objects.filter(status=StatusCliente.ATIVO)
+        data['clientes'] = Cliente.objects.filter(status='ATIVO')
     if id_cliente:
         cliente = Cliente.objects.filter(id=id_cliente).first()
         if cliente:

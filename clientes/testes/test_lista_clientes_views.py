@@ -72,9 +72,9 @@ class ClienteViewsTests(TestCase):
 
 
 class SeedClientesCommandTests(TestCase):
-    def test_seed_cria_ao_menos_10_clientes_e_eh_idempotente(self):
+    def test_seed_cria_ao_menos_50_clientes_e_eh_idempotente(self):
         call_command("seed_clientes")
-        self.assertGreaterEqual(Cliente.objects.count(), 10)
+        self.assertGreaterEqual(Cliente.objects.count(), 50)
 
         call_command("seed_clientes")
-        self.assertEqual(Cliente.objects.count(), 10)
+        self.assertEqual(Cliente.objects.count(), 50)

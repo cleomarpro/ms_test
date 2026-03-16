@@ -29,11 +29,11 @@
             <td> 
                 <form method="get">
                     <input type="hidden" name="id_cliente" value="{{ cliente.id }}">
-                    {% if cliente.status == "AT" %}
-                        <input type="hidden" name="status_cliente" value="IN">
+                    {% if cliente.status == "ATIVO" %}
+                        <input type="hidden" name="status_cliente" value="INATIVO">
                         <button type="submit">Inativar</button>
                     {% else %}
-                        <input type="hidden" name="status_cliente" value="AT">
+                        <input type="hidden" name="status_cliente" value="ATIVO">
                         <button type="submit">Ativar</button>
                     {% endif %}
                 </form>

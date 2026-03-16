@@ -16,10 +16,10 @@
     <td>{{ cliente.nome }}</td>
     <td>{{ cliente.email }}</td>
     <td>{{ cliente.tipo }}</td>
-    <td>{{ cliente.status }}</td>
+    <td>{{ cliente.status_cliente }}</td>
     <td>
       <button (click)="alternarStatus(cliente)">
-        {{ cliente.status === 'ATIVO' ? 'Inativar' : 'Ativar' }}
+        {{ cliente.status_cliente === 'ATIVO' ? 'Inativar' : 'Ativar' }}
       </button>
     </td>
   </tr>

@@ -15,8 +15,7 @@ export class ClientesComponent implements OnInit {
 
   constructor(private clientesService: ClientesService) {}
 
-  ngOnInit(): void {
-    // Ao carregar a página, já lista os ativos
+  ngOnInit() {
     this.listarAtivos();
   }
 
@@ -35,26 +34,25 @@ export class ClientesComponent implements OnInit {
   }
 
   alternarStatus(cliente: any) {
-  const ativo = cliente.status === 'ATIVO';
-  const novoStatus = ativo ? 'INATIVO' : 'ATIVO';
-  const acao = ativo ? 'Inativar' : 'Ativar';
+  const novoStatus = cliente.status_cliente === 'ATIVO' ? 'INATIVO' : 'ATIVO';
 
-  if (confirm(`Deseja ${acao} o cliente ${cliente.nome}?`)) {
-    this.clientesService.atualizarStatus(cliente.id, novoStatus).subscribe({
-      next: () => {
-        alert(`Cliente ${cliente.nome} foi ${acao} com sucesso!`);
+  const confirmar = window.confirm(
+    `Tem certeza que deseja alterar o status do cliente "${cliente.nome}" para ${novoStatus}?`
+  );
 
-        // 🔄 Atualiza localmente e força refresh
-        this.clientes = this.clientes.map(c =>
-          c.id === cliente.id ? { ...c, status: novoStatus } : c
-        );
-      },
-      error: (err) => {
-        alert("Erro ao atualizar cliente: " + err.message);
+  if (confirmar) {
+    this.clientesService.atualizarStatus(cliente.id, novoStatus).subscribe(() => {
+      // atualiza localmente para efeito imediato
+      cliente.status_cliente = novoStatus;
+
+      // recarrega a lista para garantir consistência com o backend
+      if (this.mostrarTodos) {
+        this.listarTodos();
+      } else {
+        this.listarAtivos();
       }
     });
   }
 }
-
 
 }
